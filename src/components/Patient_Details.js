@@ -9,37 +9,38 @@ import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
 import update from 'immutability-helper'
 import * as yup from "yup";
+import axios from "axios";
 
 const formSchema = yup.object().shape({
-  Name: yup.string().required(),
-  PatientId: yup.string().required(),
-  Age: yup.number().integer().required(),
-  Gender: yup.string().required(),
-  Education: yup.string().required(),
-  Occupation: yup.string().required(),
-  Languages: yup.string().required(),
-  SocioeconomicStatus: yup.string().required(),
-  Address: yup.string().required(),
-  TelephoneNumber: yup.number().required(),
-  InformantCaregiverName: yup.string().required(),
-  RelationshipWithPatient: yup.string().required(),
-  BloodGroup: yup.string().required(),
+  name: yup.string().required(),
+  abhaId: yup.string().required(),
+  dob: yup.date().required(),
+  gender: yup.string().required(),
+  education: yup.string().required(),
+  occupation: yup.string().required(),
+  language: yup.string().required(),
+  socioEconomicStatus: yup.string().required(),
+  address: yup.string().required(),
+  phoneNo: yup.number().required(),
+  careGiverName: yup.string().required(),
+  relationshipWithPatient: yup.string().required(),
+  bloodGroup: yup.string().required(),
 })
 
 const defaultValues = {
-  Name: "",
-  PatientId: "",
-  Age: 0,
-  Gender: "",
-  Education: "",
-  Occupation: "",
-  Languages: "",
-  SocioeconomicStatus: "",
-  Address: "",
-  TelephoneNumber: "",
-  InformantCaregiverName: "",
-  RelationshipWithPatient: "",
-  BloodGroup: "",
+  name: "",
+  abhaId: 0,
+  dob: "",
+  gender: "",
+  education: "",
+  occupation: "",
+  language: "",
+  socioEconomicStatus: "",
+  address: "",
+  phoneNo: 0,
+  careGiverName: "",
+  relationshipWithPatient: "",
+  bloodGroup: "",
 // Consultation_List (List of Prior Consultation Ids)
 };
 const Patient_Details = () => {
@@ -53,9 +54,10 @@ const Patient_Details = () => {
   })
 
   const [formValues, setFormValues] = useState(defaultValues);
-
+  const [success, setSuccess] = useState(0);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name,value)
     setFormValues({
       ...formValues,
       [name]: value,
@@ -79,7 +81,19 @@ const Patient_Details = () => {
 
       if (isFormValid) {
         // If form is valid, continue submission.
-        console.log('Form is legit')
+        console.log(formValues)
+        let config = {
+        headers: {
+          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': '*',
+          "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+          }
+        }
+        // let resp = await axios.get("http://localhost:8080/api/v1/patientdemographics")
+        // console.log(resp)
+        let res = await axios.post("http://localhost:8080/api/v1/patientdemographics",formValues)
+        console.log(res)
+        if(res.data.name === formValues.name) setSuccess(1)
       } else {
         // If form is not valid, check which fields are incorrect:
         formSchema.validate(formValues, { abortEarly: false }).catch((err) => {
@@ -105,35 +119,50 @@ const Patient_Details = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container alignItems="center" direction="column" spacing="2">
+      <Grid container alignItems="center" direction="column" spacing={2} style = {{marginBottom: "20px"}}>
         <Grid item>
           <TextField
             id="name-input"
-            name="Name"
+            name="name"
             label="Name"
             type="text"
             style = {{width: 300}}
-            value={formValues.Name}
+            value={formValues.name}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
-            id="age-input"
-            name="Age"
-            label="Age"
+            id="AbhaId"
+            name="abhaId"
+            label="ABHA ID"
             type="number"
             style = {{width: 300}}
-            value={formValues.Age}
+            value={formValues.abhaId===0?"":formValues.abhaId}
             onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            id="date"
+            name="dob"
+            label="Date of Birth"
+            type="date"
+            value={formValues.dob}
+            style = {{width: 300}}
+            sx={{ width: 220 }}
+            onChange={handleInputChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
         </Grid>
         <Grid item>
           <FormControl>
             <FormLabel>Gender</FormLabel>
             <RadioGroup
-              name="Gender"
-              value={formValues.Gender}
+              name="gender"
+              value={formValues.gender}
               onChange={handleInputChange}
               row
             >
@@ -161,106 +190,109 @@ const Patient_Details = () => {
         <Grid item>
           <TextField
             id="Education"
-            name="Education"
+            name="education"
             label="Education"
             type="text"
             style = {{width: 300}}
-            variant="outlined"
-            value={formValues.Education}
+            // variant="outlined"
+            value={formValues.education}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="Occupation"
-            name="Occupation"
+            name="occupation"
             label="Occupation"
             type="text"
             style = {{width: 300}}
-            value={formValues.Occupation}
+            value={formValues.occupation}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="Languages"
-            name="Languages"
+            name="language"
             label="Languages"
             type="text"
             style = {{width: 300}}
-            value={formValues.Languages}
+            value={formValues.language}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="SocioeconomicStatus"
-            name="SocioeconomicStatus"
+            name="socioEconomicStatus"
             label="Socioeconomic Status"
             type="text"
             style = {{width: 300}}
-            value={formValues.SocioeconomicStatus}
+            value={formValues.socioEconomicStatus}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="Address"
-            name="Address"
+            name="address"
             label="Address"
             type="text"
             style = {{width: 300}}
-            value={formValues.Address}
+            value={formValues.address}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="TelephoneNumber"
-            name="TelephoneNumber"
+            name="phoneNo"
             label="Telephone Number"
             type="number"
             style = {{width: 300}}
-            value={formValues.TelephoneNumber}
+            value={formValues.phoneNo===0?"":formValues.phoneNo}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="InformantCaregiverName"
-            name="InformantCaregiverName"
+            name="careGiverName"
             label="Informant Caregiver Name"
             type="text"
             style = {{width: 300}}
-            value={formValues.InformantCaregiverName}
+            value={formValues.careGiverName}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="RelationshipWithPatient"
-            name="RelationshipWithPatient"
+            name="relationshipWithPatient"
             label="Relationship with Patient"
             type="text"
             style = {{width: 300}}
-            value={formValues.RelationshipWithPatient}
+            value={formValues.relationshipWithPatient}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item>
           <TextField
             id="BloodGroup"
-            name="BloodGroup"
+            name="bloodGroup"
             label="Blood Group"
             type="text"
             style = {{width: 300}}
-            value={formValues.BloodGroup}
+            value={formValues.bloodGroup}
             onChange={handleInputChange}
           />
         </Grid>
         <Button variant="contained" color="primary" type="submit">
           Submit
         </Button>
+        {success===0?<></>:<div>
+            Added Patient details!
+          </div>}
       </Grid>
     </form>
   );
