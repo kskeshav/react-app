@@ -1,5 +1,3 @@
-# Getting Started with Create React App
+# Healthcare Application Development
 
-## Healthcare Application Development
-
-### Brain Health Initiative
+## Brain Health Initiative
