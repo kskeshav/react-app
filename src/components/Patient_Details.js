@@ -98,11 +98,13 @@ const Patient_Details = (props) => {
           );
           if (res.data.name === formValues.name) {
             setSuccess(true);
+            setFailure(false);
             setMessage("Patient details added successfully");
           }
         }
         catch(e){
           setFailure(true);
+          setSuccess(false);
           setMessage(e.response.data.message);
         }
       } else {
