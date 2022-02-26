@@ -1,7 +1,8 @@
-
+import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
 import Navbar from './components/Navbar';
 import Patient_Details from './components/Patient_Details';
+import Search_Patient from './components/Search_Patient'
 
 const defaultValues = {
   name: "Dinesh Jain",
@@ -24,7 +25,14 @@ function App() {
   return (
     <>
       <Navbar/>
-      <Patient_Details view={true} values = {defaultValues}/>
+      <Router>
+        <Switch>
+          <Route path="/addPatient" component={Patient_Details} view={false}></Route>
+          <Route path="/searchPatient" component={Search_Patient}/>
+          <Route path="/" component={Search_Patient}></Route> 
+          <Route path="/viewPatient" component={Patient_Details} view={true} values = {defaultValues}></Route>
+        </Switch>
+      </Router>
     </>
   );
 }
