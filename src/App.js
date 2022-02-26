@@ -8,11 +8,12 @@ const defaultValues = {
   name: "Dinesh Jain",
   abhaId: 5942,
   dob: "2000-04-12",
+  age: "21",
   gender: "male",
   education: "btech",
   occupation: "engineer",
   language: "hindi",
-  socioEconomicStatus: "rich",
+  socioEconomicStatus: "below poverty line",
   address: "koramangala, bangalore, karnataka",
   phoneNo: 9192912929,
   careGiverName: "ramesh",
@@ -27,10 +28,11 @@ function App() {
       <Navbar/>
       <Router>
         <Switch>
-          <Route path="/addPatient" component={Patient_Details} view={false}></Route>
+          <Route path="/addPatient" component={() => (<Patient_Details view={false}/>)}></Route>
           <Route path="/searchPatient" component={Search_Patient}/>
+          {/* component={() => (<Comments myProp="value" />)}/> */}
+          <Route path="/viewPatient" component={() => (<Patient_Details view={true} values = {defaultValues} />)}></Route>
           <Route path="/" component={Search_Patient}></Route> 
-          <Route path="/viewPatient" component={Patient_Details} view={true} values = {defaultValues}></Route>
         </Switch>
       </Router>
     </>

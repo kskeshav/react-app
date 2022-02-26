@@ -67,12 +67,12 @@ const Patient_Details = (props) => {
   });
 
   const [formValues, setFormValues] = useState(defaultValues);
-  const [success, setSuccess] = useState(0);
 
   useEffect(() => {
-    // Update the document title using the browser API
     props.view ? setFormValues(props.values) : setFormValues(defaultValues)
-  },[]);
+    console.log(props.values)
+    console.log(props.view)
+  },[props.view, props.values]);
 
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
@@ -136,8 +136,8 @@ const Patient_Details = (props) => {
   return (
     <Paper elevation={10} style={{margin :"5vh 5%"}}>
     <fieldset disabled={props.view}>
-      // add a age column
-      <h2 style={{ textAlign: "center", marginTop: "10px" }}> Add Patient Details</h2>
+      {/*add a age column */}
+      <h2 style={{ textAlign: "center", marginTop: "10px" }}> {props.view ? "Patient Details" : "Add Patient Details"}</h2>
       <form onSubmit={handleSubmit}>
         <div style={{maxWidth:"80%", margin:"auto"}}>
         <Grid
@@ -189,6 +189,19 @@ const Patient_Details = (props) => {
               InputLabelProps={{
                 shrink: true,
               }}
+            />
+          </Grid>
+          <Grid item xs={6} direction="column" style={props.view ?{}: {display: 'none'}}>
+            <TextField
+              // {...(errors.name ? <>error</> : "")}
+              id="age"
+              name="age"
+              label="Age"
+              type="number"
+              // required
+              style={{ width: 400 }}
+              value={formValues.age}
+
             />
           </Grid>
           <Grid item xs={6} direction="column">
@@ -321,7 +334,7 @@ const Patient_Details = (props) => {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={props.view ? 6 : 12}>
             <TextField
               id="BloodGroup"
               name="bloodGroup"
@@ -343,7 +356,7 @@ const Patient_Details = (props) => {
             </TextField>
           </Grid>
         </Grid>
-          <div style={{display:"flex" ,flexDirection:"column", alignItems:"center",  maxWidth:"400px", margin:"10px auto"}}>
+          <div style={{display:"flex" ,flexDirection:"column", alignItems:"center",  maxWidth:"400px", margin:"30px auto"}}>
             <Button style={props.view ?{ display: 'none' }: {width:"200px"}} variant="contained" color="primary" type="submit">
               Submit
             </Button>
