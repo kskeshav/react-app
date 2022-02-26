@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -65,6 +65,11 @@ const Patient_Details = (props) => {
   const [formValues, setFormValues] = useState(defaultValues);
   const [success, setSuccess] = useState(0);
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    props.view ? setFormValues(props.values) : setFormValues(defaultValues)
+  },[]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -113,6 +118,7 @@ const Patient_Details = (props) => {
   
   return (
     <fieldset disabled={props.view}>
+      // add a age column
       <form onSubmit={handleSubmit}>
         <Grid
           container
@@ -250,6 +256,7 @@ const Patient_Details = (props) => {
               label="Address"
               type="text"
               required
+              multiline
               style={{ width: 300 }}
               value={formValues.address}
               onChange={handleInputChange}
