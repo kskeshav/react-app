@@ -253,6 +253,7 @@ const Patient_Details = (props) => {
                   onChange={handleInputChange}
                   style={{ width: 400 }}
                   select
+                  InputProps={{readOnly: props.view}}
                   error={errors.gender}
                   helperText={errors.gender ? "Gender is required" : ""}
                 >
@@ -312,6 +313,7 @@ const Patient_Details = (props) => {
                   label="Socioeconomic Status"
                   type="text"
                   select
+                  InputProps={{readOnly: props.view}}
                   style={{ width: 400 }}
                   value={formValues.socioEconomicStatus}
                   onChange={handleInputChange}
@@ -437,6 +439,7 @@ const Patient_Details = (props) => {
                   onChange={handleInputChange}
                   style={{ width: 400 }}
                   select
+                  InputProps={{readOnly: props.view}}
                   error={errors.bloodGroup}
                   helperText={
                     errors.bloodGroup ? "Blood Group is required" : ""

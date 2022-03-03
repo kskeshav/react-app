@@ -76,7 +76,7 @@ const Search_Patient = () => {
     <React.Fragment>
         <Box sx={{mt : 6}}>
         <Container maxWidth="md" className='searchPatient'>
-        <Grid container direction="row" alignItems="center" style = {{marginBottom: "10px"}}
+        <Grid container direction="row" alignItems="center" style = {{marginBottom: "10px", background: "white", padding: "10px", borderRadius: "10px"}}
           justifyContent="center">
             <Grid item  xs={5}>
             <TextField variant="outlined" id="outlined-value" name = "value" label="Please enter value"  style = {{width: "90%"}} value = {value} onChange={(e) => setValue(e.target.value)}/>
