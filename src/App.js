@@ -13,18 +13,18 @@ const defaultValues = {
         "lastName": "Singhal",
         "dob": "2000-01-20",
         "age": 22,
-        "gender": "male",
+        "gender": "Male",
         "education": "Cs",
         "occupation": "student",
         "language": "english",
-        "socioEconomicStatus": "a",
+        "socioEconomicStatus": "Above Poverty line",
         "address": "zxc",
         "district": "Ajmer",
         "pincode": "123456",
         "phoneNo": "6234567890",
         "careGiverName": "parithimalan",
         "relationshipWithPatient": "friend",
-        "bloodGroup": "B+ve"
+        "bloodGroup": "B+"
     }
 
 function App() {

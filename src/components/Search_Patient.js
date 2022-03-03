@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import MUIDataTable from "mui-datatables";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
 import { Grid, Select, MenuItem, Card, CardContent, Typography, CardActions, Container, Box } from '@material-ui/core';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import Patient_Details from './Patient_Details';
 
 const Search_Patient = () => {
 
