@@ -1,5 +1,8 @@
 import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
-import './App.css';
+// import './App.css';
+import './css/style.css';
+// import './styles/jquery-ui.min.css';
+import './styles/opensans-font.css';
 import Navbar from './components/Navbar';
 import Patient_Details from './components/Patient_Details';
 import Search_Patient from './components/Search_Patient'
