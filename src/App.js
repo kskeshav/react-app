@@ -5,22 +5,24 @@ import Patient_Details from './components/Patient_Details';
 import Search_Patient from './components/Search_Patient'
 
 const defaultValues = {
-  name: "Dinesh Jain",
-  abhaId: 5942,
-  dob: "2000-04-12",
-  age: "21",
-  gender: "male",
-  education: "btech",
-  occupation: "engineer",
-  language: "hindi",
-  socioEconomicStatus: "below poverty line",
-  address: "koramangala, bangalore, karnataka",
-  phoneNo: 9192912929,
-  careGiverName: "ramesh",
-  relationshipWithPatient: "father",
-  bloodGroup: "A+",
-  // Consultation_List (List of Prior Consultation Ids)
-};
+        "abhaId": "112233445560",
+        "firstName": "Keshav",
+        "lastName": "Singhal",
+        "dob": "2000-01-20",
+        "age": 22,
+        "gender": "male",
+        "education": "Cs",
+        "occupation": "student",
+        "language": "english",
+        "socioEconomicStatus": "a",
+        "address": "zxc",
+        "district": "Ajmer",
+        "pincode": "123456",
+        "phoneNo": "6234567890",
+        "careGiverName": "parithimalan",
+        "relationshipWithPatient": "friend",
+        "bloodGroup": "B+ve"
+    }
 
 function App() {
   return (

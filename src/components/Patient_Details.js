@@ -50,6 +50,8 @@ const defaultValues = {
   // Consultation_List (List of Prior Consultation Ids)
 };
 const Patient_Details = (props) => {
+  
+
   const [errors, setErrors] = useState({
     name: false,
     abhaId: false,
