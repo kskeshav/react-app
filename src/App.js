@@ -5,19 +5,23 @@ import './css/style.css';
 import './styles/opensans-font.css';
 import Navbar from './components/Navbar';
 import Patient_Details from './components/Patient_Details';
-import Search_Patient from './components/Search_Patient'
+import Search_Patient from './components/Search_Patient';
+import Consultation from './components/Consultation'
 
 const defaultValues = {
-  name: "Dinesh Jain",
+  firstName: "Dinesh",
+  lastName: "Jain",
   abhaId: 5942,
   dob: "2000-04-12",
   age: "21",
-  gender: "male",
+  gender: "Male",
   education: "btech",
   occupation: "engineer",
   language: "hindi",
-  socioEconomicStatus: "below poverty line",
+  socioEconomicStatus: "Below Poverty line",
   address: "koramangala, bangalore, karnataka",
+  district: "bangalore",
+  pincode: 560102,
   phoneNo: 9192912929,
   careGiverName: "ramesh",
   relationshipWithPatient: "father",
@@ -35,6 +39,7 @@ function App() {
           <Route path="/searchPatient" component={Search_Patient}/>
           {/* component={() => (<Comments myProp="value" />)}/> */}
           <Route path="/viewPatient" component={() => (<Patient_Details view={true} values = {defaultValues} />)}></Route>
+          <Route path="/consult" component={() => (<Consultation view={false}/>)}></Route>
           <Route path="/" component={Search_Patient}></Route> 
         </Switch>
       </Router>

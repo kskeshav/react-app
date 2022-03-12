@@ -145,17 +145,17 @@ const Patient_Details = (props) => {
   );
 
   return (
-    <Paper elevation={10} style={{ margin: "5vh 5%" }} className="page-content">
+    <Paper elevation={10} style={{ margin: "5vh 35%", width: "64%" }} className="page-content" >
       <fieldset disabled={props.view}>
         <h2
-          style={{ textAlign: "center", marginTop: "10px" }}
+          style={{ textAlign: "center", marginTop: "5px" }}
           className="wizard-heading"
         >
           {props.view ? "Patient Details" : "Add Patient Details"}
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <div style={{ maxWidth: "80%", margin: "auto" }}>
+          <div style={{ maxWidth: "95%", margin: "auto" }}>
             <Grid
               container
               spacing={3}
@@ -163,13 +163,13 @@ const Patient_Details = (props) => {
               alignItems="center"
               justifyContent="center"
             >
-              <Grid item xs={4}>
+              <Grid item l={4}>
                 <TextField
                   id="outlined-name"
                   name="firstName"
                   label="First Name *"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.firstName}
                   onChange={handleInputChange}
                   // validationSchema={formSchema}
@@ -178,14 +178,14 @@ const Patient_Details = (props) => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item l={4}>
                 <TextField
                   variant="outlined"
                   id="name-input"
                   name="lastName"
                   label="Last Name"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.lastName}
                   onChange={handleInputChange}
                   error={errors.lastName}
@@ -193,20 +193,20 @@ const Patient_Details = (props) => {
                   // validationSchema={formSchema}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="AbhaId"
                   name="abhaId"
                   label="ABHA ID"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.abhaId}
                   onChange={handleInputChange}
                   error={errors.abhaId}
                   helperText={errors.abhaId ? "Abha Id is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="date"
@@ -214,7 +214,7 @@ const Patient_Details = (props) => {
                   label="Date of Birth"
                   type="date"
                   value={formValues.dob}
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   sx={{ width: 220 }}
                   onChange={handleInputChange}
                   InputLabelProps={{
@@ -226,7 +226,7 @@ const Patient_Details = (props) => {
               </Grid>
               <Grid
                 item
-                xs={4}
+                l={4}
                 direction="column"
                 style={props.view ? {} : { display: "none" }}
               >
@@ -237,11 +237,11 @@ const Patient_Details = (props) => {
                   name="age"
                   label="Age"
                   // required
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.age}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Gender"
@@ -249,7 +249,7 @@ const Patient_Details = (props) => {
                   label="Gender"
                   value={formValues.gender}
                   onChange={handleInputChange}
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   select
                   error={errors.gender}
                   helperText={errors.gender ? "Gender is required" : ""}
@@ -259,14 +259,14 @@ const Patient_Details = (props) => {
                   <MenuItem value="Others">Others</MenuItem>
                 </TextField>
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Education"
                   name="education"
                   label="Education"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   // variant="outlined"
                   value={formValues.education}
                   onChange={handleInputChange}
@@ -274,35 +274,35 @@ const Patient_Details = (props) => {
                   helperText={errors.education ? "Education is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Occupation"
                   name="occupation"
                   label="Occupation"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.occupation}
                   onChange={handleInputChange}
                   error={errors.occupation}
                   helperText={errors.occupation ? "Occupation is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Languages"
                   name="language"
                   label="Languages"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.language}
                   onChange={handleInputChange}
                   error={errors.language}
                   helperText={errors.language ? "Language is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="SocioeconomicStatus"
@@ -310,7 +310,7 @@ const Patient_Details = (props) => {
                   label="Socioeconomic Status"
                   type="text"
                   select
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.socioEconomicStatus}
                   onChange={handleInputChange}
                   error={errors.socioEconomicStatus}
@@ -324,7 +324,7 @@ const Patient_Details = (props) => {
                   <MenuItem value="Above Poverty line">Above Poverty line</MenuItem>
                 </TextField>
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Address"
@@ -332,47 +332,47 @@ const Patient_Details = (props) => {
                   label="Address"
                   type="text"
                   multiline
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.address}
                   onChange={handleInputChange}
                   error={errors.address}
                   helperText={errors.address ? "Address is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="District"
                   name="district"
                   label="District"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.district}
                   onChange={handleInputChange}
                   error={errors.district}
                   helperText={errors.district ? "District is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Pincode"
                   name="pincode"
                   label="Pincode"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.pincode}
                   onChange={handleInputChange}
                   error={errors.pincode}
                   helperText={errors.pincode ? "Pincode is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="TelephoneNumber"
                   name="phoneNo"
                   label="Telephone Number"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.phoneNo === 0 ? "" : formValues.phoneNo}
                   onChange={handleInputChange}
                   // error={
@@ -391,14 +391,14 @@ const Patient_Details = (props) => {
                   }
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="InformantCaregiverName"
                   name="careGiverName"
                   label="Informant Caregiver Name"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.careGiverName}
                   onChange={handleInputChange}
                   error={errors.careGiverName}
@@ -409,14 +409,14 @@ const Patient_Details = (props) => {
                   }
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item l={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="RelationshipWithPatient"
                   name="relationshipWithPatient"
                   label="Relationship with Patient"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   value={formValues.relationshipWithPatient}
                   onChange={handleInputChange}
                   error={errors.relationshipWithPatient}
@@ -425,7 +425,7 @@ const Patient_Details = (props) => {
                   }
                 />
               </Grid>
-              <Grid item xs={props.view ? 4 : 12}>
+              <Grid item l={props.view ? 4 : 12}>
                 <TextField
                   variant="outlined"
                   id="BloodGroup"
@@ -433,7 +433,7 @@ const Patient_Details = (props) => {
                   label="Blood Group"
                   value={formValues.bloodGroup}
                   onChange={handleInputChange}
-                  style={{ width: 400 }}
+                  style={{ width: 270 }}
                   select
                   error={errors.bloodGroup}
                   helperText={
@@ -456,7 +456,7 @@ const Patient_Details = (props) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                maxWidth: "400px",
+                maxWidth: "270px",
                 margin: "50px auto",
               }}
             >

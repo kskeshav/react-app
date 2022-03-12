@@ -1,6 +1,10 @@
 body {
-	margin: 0; 
-    background-image: linear-gradient(rgb(171, 130, 238), rgba(153, 0, 255, 0.466)); 
+	margin: 0;
+    background-image: url("../images/patient.jpg"); 
+    background-size: 1780px;
+    /* width: 3px; */
+    height: 60px;
+    /* border: 2px solid; */
 }
 .page-content {
 	width: 90%;
