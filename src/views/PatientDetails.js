@@ -16,6 +16,7 @@ import update from "immutability-helper";
 import * as yup from "yup";
 import axios from "axios";
 import "react-phone-input-2/lib/style.css";
+import {Link} from "react-router-dom"
 
 const formSchema = yup.object().shape({
   firstName: yup.string().required(),
@@ -58,7 +59,7 @@ const defaultValues = {
   bloodGroup: "",
   // Consultation_List (List of Prior Consultation Ids)
 };
-const Patient_Details = (props) => {
+const PatientDetails = (props) => {
   
 
   const [errors, setErrors] = useState({
@@ -81,14 +82,18 @@ const Patient_Details = (props) => {
   });
 
   const [formValues, setFormValues] = useState(defaultValues);
-
-  useEffect(() => {
-    props.view ? setFormValues(props.values) : setFormValues(defaultValues);
-  }, [props.view, props.values]);
-
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    props.view ? setFormValues(props.values) : setFormValues(formValues);
+    setSuccess(props.success) 
+    setFailure(props.failure) 
+    setMessage(props.message) 
+  }, [props.view, props.values, props.success, props.failure, props.message]);
+
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setErrors({
@@ -111,22 +116,8 @@ const Patient_Details = (props) => {
       });
 
       if (isFormValid) {
-        console.log(formValues);
-        try {
-          let res = await axios.post(
-            "http://localhost:8080/api/v1/patientdemographics",
-            formValues
-          );
-          if (res.data.name === formValues.name) {
-            setSuccess(true);
-            setFailure(false);
-            setMessage("Patient details added successfully");
-          }
-        } catch (e) {
-          setFailure(true);
-          setSuccess(false);
-          setMessage(e.response.data.message);
-        }
+        console.log(formValues)
+        props.add(formValues);
       } else {
         formSchema.validate(formValues, { abortEarly: false }).catch((err) => {
           const errors = err.inner.reduce((acc, error) => {
@@ -147,11 +138,11 @@ const Patient_Details = (props) => {
   );
 
   return (
-    <Paper elevation={10} style={{ margin: "5vh 5%" }} className="page-content">
+    <Paper elevation={10} style={{ margin: "20px 5%" }} className="page-content">
       <fieldset disabled={props.view}>
         <h2
           style={{ textAlign: "center", marginTop: "10px" }}
-          className="wizard-heading"
+          className="heading"  
         >
           {props.view ? "Patient Details" : "Add Patient Details"}
         </h2>
@@ -165,13 +156,13 @@ const Patient_Details = (props) => {
               alignItems="center"
               justifyContent="center"
             >
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={6} md={6} xl={4}>
                 <TextField
                   id="outlined-name"
                   name="firstName"
                   label="First Name *"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.firstName}
                   onChange={handleInputChange}
                   // validationSchema={formSchema}
@@ -180,14 +171,14 @@ const Patient_Details = (props) => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={6} md={6} xl={4}>
                 <TextField
                   variant="outlined"
                   id="name-input"
                   name="lastName"
                   label="Last Name"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.lastName}
                   onChange={handleInputChange}
                   error={errors.lastName}
@@ -195,20 +186,20 @@ const Patient_Details = (props) => {
                   // validationSchema={formSchema}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="AbhaId"
                   name="abhaId"
                   label="ABHA ID"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.abhaId}
                   onChange={handleInputChange}
                   error={errors.abhaId}
                   helperText={errors.abhaId ? "Abha Id is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="date"
@@ -216,7 +207,7 @@ const Patient_Details = (props) => {
                   label="Date of Birth"
                   type="date"
                   value={formValues.dob}
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   sx={{ width: 220 }}
                   onChange={handleInputChange}
                   InputLabelProps={{
@@ -228,7 +219,7 @@ const Patient_Details = (props) => {
               </Grid>
               <Grid
                 item
-                xs={4}
+                xs={12} sm={6} md={6} xl={4}
                 direction="column"
                 style={props.view ? {} : { display: "none" }}
               >
@@ -239,11 +230,11 @@ const Patient_Details = (props) => {
                   name="age"
                   label="Age"
                   // required
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.age}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Gender"
@@ -251,7 +242,7 @@ const Patient_Details = (props) => {
                   label="Gender"
                   value={formValues.gender}
                   onChange={handleInputChange}
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   select
                   InputProps={{readOnly: props.view}}
                   error={errors.gender}
@@ -262,14 +253,14 @@ const Patient_Details = (props) => {
                   <MenuItem value="Others">Others</MenuItem>
                 </TextField>
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Education"
                   name="education"
                   label="Education"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   // variant="outlined"
                   value={formValues.education}
                   onChange={handleInputChange}
@@ -277,35 +268,35 @@ const Patient_Details = (props) => {
                   helperText={errors.education ? "Education is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Occupation"
                   name="occupation"
                   label="Occupation"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.occupation}
                   onChange={handleInputChange}
                   error={errors.occupation}
                   helperText={errors.occupation ? "Occupation is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Languages"
                   name="language"
                   label="Languages"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.language}
                   onChange={handleInputChange}
                   error={errors.language}
                   helperText={errors.language ? "Language is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="SocioeconomicStatus"
@@ -314,7 +305,7 @@ const Patient_Details = (props) => {
                   type="text"
                   select
                   InputProps={{readOnly: props.view}}
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.socioEconomicStatus}
                   onChange={handleInputChange}
                   error={errors.socioEconomicStatus}
@@ -328,7 +319,7 @@ const Patient_Details = (props) => {
                   <MenuItem value="Above Poverty line">Above Poverty line</MenuItem>
                 </TextField>
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Address"
@@ -336,47 +327,47 @@ const Patient_Details = (props) => {
                   label="Address"
                   type="text"
                   multiline
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.address}
                   onChange={handleInputChange}
                   error={errors.address}
                   helperText={errors.address ? "Address is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="District"
                   name="district"
                   label="District"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.district}
                   onChange={handleInputChange}
                   error={errors.district}
                   helperText={errors.district ? "District is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="Pincode"
                   name="pincode"
                   label="Pincode"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.pincode}
                   onChange={handleInputChange}
                   error={errors.pincode}
                   helperText={errors.pincode ? "Pincode is required" : ""}
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="TelephoneNumber"
                   name="phoneNo"
                   label="Telephone Number"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.phoneNo === 0 ? "" : formValues.phoneNo}
                   onChange={handleInputChange}
                   // error={
@@ -395,14 +386,14 @@ const Patient_Details = (props) => {
                   }
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="InformantCaregiverName"
                   name="careGiverName"
                   label="Informant Caregiver Name"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.careGiverName}
                   onChange={handleInputChange}
                   error={errors.careGiverName}
@@ -413,14 +404,14 @@ const Patient_Details = (props) => {
                   }
                 />
               </Grid>
-              <Grid item xs={4} direction="column">
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="RelationshipWithPatient"
                   name="relationshipWithPatient"
                   label="Relationship with Patient"
                   type="text"
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   value={formValues.relationshipWithPatient}
                   onChange={handleInputChange}
                   error={errors.relationshipWithPatient}
@@ -429,7 +420,7 @@ const Patient_Details = (props) => {
                   }
                 />
               </Grid>
-              <Grid item xs={props.view ? 4 : 12}>
+              <Grid item xs={12} sm={6} md={6} xl={4} direction="column">
                 <TextField
                   variant="outlined"
                   id="BloodGroup"
@@ -437,7 +428,7 @@ const Patient_Details = (props) => {
                   label="Blood Group"
                   value={formValues.bloodGroup}
                   onChange={handleInputChange}
-                  style={{ width: 400 }}
+                  style={{ width: "100%" }}
                   select
                   InputProps={{readOnly: props.view}}
                   error={errors.bloodGroup}
@@ -473,6 +464,7 @@ const Patient_Details = (props) => {
               >
                 Submit
               </Button>
+              
               <Collapse in={success}>
                 <Alert
                   action={
@@ -519,4 +511,4 @@ const Patient_Details = (props) => {
     </Paper>
   );
 };
-export default Patient_Details;
+export default PatientDetails;

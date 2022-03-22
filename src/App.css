@@ -39,3 +39,12 @@
     transform: rotate(360deg);
   }
 }
+
+.heading{
+  color: rgb(17, 17, 17);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    padding-top: 25px;
+    padding-bottom: 15px;
+}

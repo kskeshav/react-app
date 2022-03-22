@@ -3,12 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import thunk from "redux-thunk"
+import combinedReducers from './reducers/CombinedReducers';
+import {createStore, applyMiddleware,compose} from "redux";
+
+const store = createStore(
+    combinedReducers,
+    compose(applyMiddleware(thunk))
+) // this is creating a store. creating a store requires reducers and middlewares
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

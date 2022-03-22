@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MUIDataTable from "mui-datatables";
 import TextField from "@mui/material/TextField";
 import Button from "@material-ui/core/Button";
-import { Grid, Select, MenuItem, Card, CardContent, Typography, CardActions, Container, Box } from '@material-ui/core';
+import { Grid, Select, MenuItem, Container, Box } from '@material-ui/core';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from "axios";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const Search_Patient = () => {
-
+const SearchPatient = (props) => {
+    let history = useHistory();
     const fetchUrl = (id,field) => {
       return "http://localhost:8080/api/v1/patientdemographics/"+ field + "/" + id;
     }
@@ -18,18 +17,21 @@ const Search_Patient = () => {
     const [field, setField] = useState('abhaId');
 
     const [results, setResult] = useState([]);
-    
+    useEffect(() => {
+      setResult(props.values) 
+    }, [props.values]);
     const handleSubmit =  async (event) => {
       // Prevent form from submitting:
       event.preventDefault();
-      let res = await axios.get(fetchUrl(value,field));
-      console.log(res);
-      setResult(res.data);
+      props.get(fetchUrl(value,field));
+      // console.log(res);
+      // setResult(res.data);
     }
 
     const ViewPatient = (result) => {
-      console.log(result.abhaId);
-      return <Link to={"/viewPatient/"+result.abhaId} > </Link>
+      console.log(result);
+      props.set(result);
+      return history.push("/viewPatientDashboard");
     }
     const columns = 
     [
@@ -115,4 +117,4 @@ const Search_Patient = () => {
   )
 }
 
-export default Search_Patient
+export default SearchPatient
