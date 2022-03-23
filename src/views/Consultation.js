@@ -35,9 +35,19 @@ const formSchema = yup.object().shape({
     followUpDate: yup.date().required(),
     referral: yup.string().required(),
     moveToIP: yup.string().required(),
-    reviewSOS: yup.string().required(),
+    reviewSos: yup.string().required(),
   });
   
+  
+
+const Medicines = {
+  medicineName: "",
+  dosage: "",
+  dosingTime: "",
+  duration: "",
+};
+const Consultation = (props) => {
+
   const defaultValues = {
     consultationDate: "",
     complaint: "",
@@ -51,18 +61,12 @@ const formSchema = yup.object().shape({
     remarks: "",
     followUpDate: "",
     referral: "",
+    patient:props.patient,
     moveToIP: false,
-    reviewSOS: false,
+    reviewSos: false,
     // Consultation_List (List of Prior Consultation Ids)
   };
 
-const Medicines = {
-  medicineName: "",
-  dosage: "",
-  dosingTime: "",
-  duration: "",
-};
-const Consultation = (props) => {
   const [medicineList, setMedicineList] = useState([Medicines]);
 
   const handleButton = (e, index) => {
@@ -110,7 +114,7 @@ const Consultation = (props) => {
   
   const handleRadioChange = (event) => {
     setRadioValue(event.target.value);
-    setFormValues({...formValues , moveToIP: (radioValue === "moveToIP"), reviewSOS: (radioValue === "reviewSOS")})
+    setFormValues({...formValues , moveToIP: (event.target.value === "moveToIP"), reviewSos: (event.target.value === "reviewSOS")})
   }
 
   useEffect(() => {
@@ -120,11 +124,12 @@ const Consultation = (props) => {
 
   useEffect(() => {
     props.view ? setFormValues(props.values) : setFormValues(formValues);
-    props.view ? setRadioValue(props.value.reviewSOS ? "reviewSOS" : props.value.moveToIP ? "moveToIP" : "" ) : setRadioValue("")
+    props.view ? setRadioValue(props.values.reviewSos ? "reviewSOS" : props.values.moveToIP ? "moveToIP" : "" ) : setRadioValue("")
+    props.view ? setMedicineList(props.values.medicines) : setMedicineList(medicineList);
     setSuccess(props.success) 
     setFailure(props.failure) 
     setMessage(props.message) 
-  }, [props.view, props.values, props.success, props.failure, props.message]);
+  }, [props.view, props.values, props.success, props.failure, props.message, props.patient]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

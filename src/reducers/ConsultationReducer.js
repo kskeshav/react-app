@@ -1,12 +1,16 @@
 import { 
     ADD_CONSULTATION_REQUEST,
     ADD_CONSULTATION_SUCCESS,
-    ADD_CONSULTATION_FAILURE
+    ADD_CONSULTATION_FAILURE,
+    GET_CONSULTATION_REQUEST,
+    GET_CONSULTATION_SUCCESS,
+    GET_CONSULTATION_FAILURE,
+    SET_CURRENT_CONSULTATION
  } from "../constants";  
 
 const consultationState = {
     consultation: {
-        doc: "",
+        consultationDate: "",
         complaint: "",
         examination: "",
         illnessSummary: "",
@@ -19,7 +23,7 @@ const consultationState = {
         followUp: "",
         referral: "",
         moveToIP: "",
-        reviewSOS: "",
+        reviewSos: "",
     },
     errMessage: "",
     success: false,
@@ -33,6 +37,24 @@ const consultationState = {
 export const ConsultationReducer = (state = consultationState, action) => {
     console.log(action)
     switch (action.type) {
+        case GET_CONSULTATION_SUCCESS : 
+            return {
+                ...state,
+                consultations: action.consultations,
+                consultationLoading: false
+            };
+        case GET_CONSULTATION_FAILURE:
+            return {
+                ...state, 
+                consultationLoading: false,
+                errMessage: action.err 
+            }
+        
+        case GET_CONSULTATION_REQUEST:
+            return {
+                ...state,
+                consultationLoading: true
+            }
         case ADD_CONSULTATION_REQUEST:
             return {
                 ...state,
@@ -54,6 +76,11 @@ export const ConsultationReducer = (state = consultationState, action) => {
                 failure: action.status.failure,
                 message: action.status.message,
                 consultationAdding: false,
+            }
+        case SET_CURRENT_CONSULTATION:
+            return {
+                ...state,
+                consultation: action.consultation
             }
         default:
             return {...state};

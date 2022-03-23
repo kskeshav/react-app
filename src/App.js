@@ -9,6 +9,8 @@ import ViewPatientDetailsContainer from './containers/ViewPatientDetailsContaine
 import SearchPatientContainer from './containers/SearchPatientContainer';
 import AddConsultationContainer from "./containers/AddConsultationContainer";
 import ViewPatientDashboard from "./views/ViewPatientDashboard";
+import ViewConsultationContainer from "./containers/ViewConsultationContainer";
+import ViewAllConsultationsContainer from "./containers/ViewAllConsultationsContainer";
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
           <Route path="/viewPatientDashboard" component={ViewPatientDashboard}/>
           <Route path="/viewPatient" component={ViewPatientDetailsContainer}></Route>
           <Route path="/addConsultation" component={AddConsultationContainer}></Route>
+          <Route path="/viewConsultation" component={ViewConsultationContainer}></Route>
+          <Route path="/viewPastConsultations" component={ViewAllConsultationsContainer}></Route>
           <Route path="/" component={SearchPatientContainer}></Route> 
         </Switch>
       </Router>

@@ -33,7 +33,7 @@ const ViewPatientDashboard = () => {
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={4}>
                     <Button onClick={gotoViewPatient}>
-                    <Card variant="outlined" className={classes.root}>
+                    <Card className={classes.root}>
                         <CardActionArea >
                             <CardContent>
                                 <div style={{height: "240px", width: "240px", padding: "10px"}}><PatientIcon/></div>
