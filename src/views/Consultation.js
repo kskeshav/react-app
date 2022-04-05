@@ -85,7 +85,12 @@ const Consultation = (props) => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    setMedicineList([...medicineList, Medicines]);
+    setMedicineList([...medicineList, {
+      medicineName: "",
+      dosage: "",
+      dosingTime: "",
+      duration: "",
+    }]);
   };
   const [errors, setErrors] = useState({
     consultationDate: false,
@@ -103,8 +108,6 @@ const Consultation = (props) => {
   });
 
   const [formValues, setFormValues] = useState(defaultValues);
-
-  
 
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
